@@ -14,14 +14,15 @@ def download_lightcurve(obsid):
     fn = dl['Local Path'][0]
     hdul = fits.open(fn)
     lc = Table(hdul[1].data)
-    lc['NORM_PDCSAP_FLUX'] = lc['PDCSAP_FLUX']/np.nanmedian(lc['PDCSAP_FLUX'])
+    lc['NORM_PDCSAP_FLUX'] = lc['PDCSAP_FLUX']/np.nanpercentile(lc['PDCSAP_FLUX'], 50)
     data = lc.to_pandas()
     return data
 
 def generate_figure(data, title):
+    source = ColumnDataSource(data[['TIME', 'NORM_PDCSAP_FLUX']])
     fig = figure(tools="pan,wheel_zoom,box_zoom,reset,save", 
                 active_scroll="wheel_zoom", plot_width=800, plot_height=300)
-    render = fig.circle('TIME','NORM_PDCSAP_FLUX', source=data, 
+    render = fig.circle('TIME','NORM_PDCSAP_FLUX', source=source, 
                     size=3, line_color=point_color, fill_color=point_color)
     fig.xaxis.axis_label = 'Time (BJD - 2457000)'
     fig.yaxis.axis_label = 'Normalized Flux'
@@ -49,7 +50,7 @@ if __name__ == '__main__':
         except:
             print('TIC {0}, obsid {1} could not be found.'.format(i,o))
             continue
-        fig = generate_figure(data, 'TIC{0:.0f}.html'.format(i))
+        fig = generate_figure(data, 'TIC{0:.0f}'.format(i))
         output_file('fig/TIC{0:.0f}.html'.format(i))
         save(fig)
         n += 1
