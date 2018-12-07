@@ -6,8 +6,8 @@ import pandas as pd
 import glob
 from bokeh.plotting import ColumnDataSource, figure, output_file, save
 
-odd_color = '#d63031' # red
-even_color = '#2d3436' # black
+odd_color = '#d9534f' # red
+even_color = '#292b2c' # black
 
 def download_lightcurve(obsid):
     """Return a pandas dataframe of lightcurve data for one source."""
@@ -52,7 +52,7 @@ if __name__ == '__main__':
         except:
             print('TIC {0}, obsid {1} could not be found.'.format(i,o))
             continue
-        if i//2 == 1:
+        if i%2 == 1:
             point_color = odd_color
         else:
             point_color = even_color
