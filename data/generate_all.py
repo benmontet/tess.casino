@@ -6,7 +6,8 @@ import pandas as pd
 import glob
 from bokeh.plotting import ColumnDataSource, figure, output_file, save
 
-point_color = '#006600' # darkened casino green
+odd_color = '#d63031' # red
+even_color = '#2d3436' # black
 
 def download_lightcurve(obsid):
     """Return a pandas dataframe of lightcurve data for one source."""
@@ -18,7 +19,7 @@ def download_lightcurve(obsid):
     data = lc.to_pandas()
     return data
 
-def generate_figure(data, title):
+def generate_figure(data, title, point_color='k'):
     source = ColumnDataSource(data[['TIME', 'NORM_PDCSAP_FLUX']])
     fig = figure(tools="pan,wheel_zoom,box_zoom,reset,save", 
                 active_scroll="wheel_zoom", plot_width=800, plot_height=300)
@@ -38,6 +39,7 @@ def generate_figure(data, title):
 if __name__ == '__main__':
     t = Table.read('../data/tess-timeseries-mast.csv')
     t = t[t['sequence_number'] == 1] # HACK - just do sector 1
+    t = t[:1024] # HACK - 1024 targets
     
     # Generate all figures:
     N = len(t)
@@ -50,7 +52,11 @@ if __name__ == '__main__':
         except:
             print('TIC {0}, obsid {1} could not be found.'.format(i,o))
             continue
-        fig = generate_figure(data, 'TIC{0:.0f}'.format(i))
+        if i//2 == 1:
+            point_color = odd_color
+        else:
+            point_color = even_color
+        fig = generate_figure(data, 'TIC{0:.0f}'.format(i), point_color=point_color)
         output_file('fig/TIC{0:.0f}.html'.format(i))
         save(fig)
         n += 1
