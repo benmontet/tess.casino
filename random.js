@@ -1039,6 +1039,7 @@ function codeAddress() {
 var tic_path = codeAddress();
 var tic = tic_path.slice(9,21);
 var id = tic.slice(3,);
+var id = id.split('.').join('');
                    
 var royalFlush = document.getElementById("royal-flush");
 royalFlush.href = "https://twitter.com/intent/tweet?text=I%20won%20big%20with%20lucky%20TIC%20" + encodeURIComponent(id) + "%20at%20the%20TESS.casino!!%20&hashtags=TESSroulette";  
