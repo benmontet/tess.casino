@@ -1087,10 +1087,16 @@ function getRandomUrl(myFrame) {
   var index = Math.floor(Math.random() * links.length);
   var url = links[index];
   myFrame.src = url;
+  return url;
 }
 
 function codeAddress() {
-  getRandomUrl(myFrame);
+  url = getRandomUrl(myFrame);
+  return url;
 }
 
-codeAddress();
+var tic_path = codeAddress();
+var tic = tic_path.slice(9,21);
+
+var royalFlush = document.getElementById("royal-flush");
+royalFlush.href = "https://twitter.com/intent/tweet?text=I%20won%20big%20at%20the%20TESS.casino!!%20" + encodeURIComponent(tic) + "%20&hashtags=TESSroulette";  
