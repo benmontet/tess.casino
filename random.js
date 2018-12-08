@@ -1038,10 +1038,11 @@ function codeAddress() {
 
 var tic_path = codeAddress();
 var tic = tic_path.slice(9,21);
-
-var royalFlush = document.getElementById("royal-flush");
-royalFlush.href = "https://twitter.com/intent/tweet?text=I%20won%20big%20at%20the%20TESS.casino!!%20" + encodeURIComponent(tic) + "%20&hashtags=TESSroulette";  
-
 var id = tic.slice(3,);
+                   
+var royalFlush = document.getElementById("royal-flush");
+royalFlush.href = "https://twitter.com/intent/tweet?text=I%20won%20big%20with%20lucky%20TIC%20" + encodeURIComponent(id) + "%20at%20the%20TESS.casino!!%20&hashtags=TESSroulette";  
+
+
 var exofop = document.getElementById("exofop");
 exofop.href = "https://exofop.ipac.caltech.edu/tess/target.php?id=" + encodeURIComponent(id);
