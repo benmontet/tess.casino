@@ -1045,4 +1045,3 @@ royalFlush.href = "https://twitter.com/intent/tweet?text=I%20won%20big%20at%20th
 var id = tic.slice(3,);
 var exofop = document.getElementById("exofop");
 exofop.href = "https://exofop.ipac.caltech.edu/tess/target.php?id=" + encodeURIComponent(id);
-console.log(exofop)
